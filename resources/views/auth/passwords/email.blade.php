@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacy App - Login</title>
+    <title>Pharmacy App - Reset Password</title>
     <style>
         body {
             font-family: "Times New Roman", sans-serif;
@@ -21,7 +21,7 @@
             padding-right: 50px;
         }
         
-        .login-card {
+        .reset-card {
             background-color: white;
             padding: 40px;
             border-radius: 10px;
@@ -29,7 +29,7 @@
             width: 350px;
         }
 
-        .login-card h2 {
+        .reset-card h2 {
             text-align: center;
             margin-bottom: 25px;
             margin-top: 0;
@@ -40,7 +40,7 @@
             margin-bottom: 15px;
         }
 
-        .login-card input {
+        .reset-card input {
             width: 100%;
             padding: 12px;
             margin-bottom: 5px;
@@ -49,7 +49,7 @@
             box-sizing: border-box;
         }
 
-        .login-card button {
+        .reset-card button {
             width: 100%;
             padding: 12px;
             background-color: #27ae60;
@@ -61,7 +61,7 @@
             margin-top: 10px;
         }
 
-        .login-card button:hover {
+        .reset-card button:hover {
             background-color: #219150;
         }
 
@@ -91,60 +91,39 @@
             border: 1px solid #c3e6cb;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .remember-me input {
-            width: auto;
-            margin-right: 8px;
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-top: -10px;
-            margin-bottom: 15px;
-        }
-
-        .forgot-password a {
-            color: #27ae60;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .signup-link {
+        .login-link {
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
             color: #555;
         }
 
-        .signup-link a {
+        .login-link a {
             color: #27ae60;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .signup-link a:hover {
+        .login-link a:hover {
             text-decoration: underline;
+        }
+
+        .instructions {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="login-card">
-        <h2>Welcome</h2>
+    <div class="reset-card">
+        <h2>Reset Password</h2>
 
-        @if(session('success'))
+        @if(session('status'))
         <div class="alert alert-success">
-            {{ session('success') }}
+            {{ session('status') }}
         </div>
         @endif
 
@@ -156,37 +135,25 @@
         </div>
         @endif
 
-        <form action="{{ route('login') }}" method="POST">
+        <div class="instructions">
+            Enter your email and we'll send you a password reset link.
+        </div>
+
+        <form action="{{ route('password.email') }}" method="POST">
             @csrf
            
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
                 @error('email')
                 <span class="error-message">{{ $message }}</span>
                 @enderror
             </div>
 
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-                @error('password')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="remember-me">
-                <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                <label for="remember">Remember me</label>
-            </div>
-
-            <div class="forgot-password">
-                <a href="{{ route('password.request') }}">Forgot Password?</a>
-            </div>
-
-            <button type="submit">Log In</button>
+            <button type="submit">Send Reset Link</button>
         </form>
 
-        <div class="signup-link">
-            Don't have an account? <a href="{{ route('signup') }}">Sign Up</a>
+        <div class="login-link">
+            Remember your password? <a href="{{ route('login') }}">Log In</a>
         </div>
     </div>
 </body>

@@ -5,7 +5,15 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\DashboardController;
-// ... other use statements
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\NotificationController;
 
 // Public Routes (accessible to all)
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -33,6 +41,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // for user dashboard 
+     Route::get('/medications/search', [MedicationController::class, 'search'])
+        ->name('user.medications.search');
     
     // Resource Routes
     Route::resource('patients', PatientController::class);

@@ -29,9 +29,9 @@
                     <div class="dropdown-menu">
                         <a href="{{ route('profile.edit') }}">Profile</a>
                         <form method="POST" action="{{ route('logout') }}">
-                             @csrf
-                                  <button type="submit">Logout</button>
-                            </form>
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -145,8 +145,8 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
-                
             <!-- Recent Activity Section -->
             <div class="recent-activity">
                 <div class="section-header">
@@ -180,16 +180,20 @@
                     @endforelse
                 </div>
             </div>
+        </div>
+    </div>
 
-           
-    <!-- Footer -->
-    <div class="dashboard-footer">
+    <!-- Facebook-style Minimal Footer -->
+    <div class="minimal-footer">
         <div class="footer-content">
-            <p>Version 1.0.0</p>
-            <p>Copyright © {{ date('Y') }} Attariya Pharmacy. All rights reserved.</p>
-            <div class="system-info">
-                <span>Last updated: {{ now()->format('d M Y H:i') }}</span>
-                <span>Server Time: {{ now()->format('H:i:s') }}</span>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Help</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="copyright">
+                <span>Attariya Pharmacy © {{ date('Y') }}</span>
             </div>
         </div>
     </div>
@@ -404,10 +408,6 @@
         border-top: 3px solid #f39c12;
     }
 
-    .widget-card.danger {
-        border-top: 3px solid #e74c3c;
-    }
-
     .widget-card .card-body {
         padding: 20px;
         display: flex;
@@ -423,10 +423,6 @@
 
     .widget-card.warning .card-icon {
         color: #f39c12;
-    }
-
-    .widget-card.danger .card-icon {
-        color: #e74c3c;
     }
 
     .card-content {
@@ -467,7 +463,7 @@
         font-size: 10px;
     }
 
-    .recent-activity, .recent-orders {
+    .recent-activity {
         background: white;
         border-radius: 8px;
         padding: 20px;
@@ -548,96 +544,11 @@
         color: #888;
     }
 
-    .empty-state i {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    .empty-state p {
-        margin: 0;
-    }
-
-    .table-responsive {
-        overflow-x: auto;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 12px 15px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-    }
-
-    th {
+    /* Facebook-style Minimal Footer */
+    .minimal-footer {
         background-color: #f5f7fa;
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    tr:hover {
-        background-color: #f9f9f9;
-    }
-
-    .status-badge {
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .status-badge.pending {
-        background-color: #fff3cd;
-        color: #856404;
-    }
-
-    .status-badge.processed {
-        background-color: #d4edda;
-        color: #155724;
-    }
-
-    .status-badge.completed {
-        background-color: #d1ecf1;
-        color: #0c5460;
-    }
-
-    .status-badge.cancelled {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-    .action-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        color: white;
-        margin-right: 5px;
-    }
-
-    .action-btn.view {
-        background-color: #17a2b8;
-    }
-
-    .action-btn.process {
-        background-color: #28a745;
-    }
-
-    .action-btn:hover {
-        opacity: 0.8;
-    }
-
-    .dashboard-footer {
-        background-color: #2c3e50;
-        color: white;
         padding: 15px 30px;
-        text-align: center;
-        font-size: 13px;
+        border-top: 1px solid #e0e0e0;
         margin-top: auto;
     }
 
@@ -645,16 +556,33 @@
         max-width: 1200px;
         margin: 0 auto;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+        font-size: 12px;
+        color: #65676b;
     }
 
-    .system-info {
-        color: #bbb;
+    .footer-links {
         display: flex;
+        flex-wrap: wrap;
         gap: 15px;
     }
 
+    .footer-links a {
+        color: #65676b;
+        text-decoration: none;
+    }
+
+    .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    .copyright {
+        margin-left: auto;
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 992px) {
         .widgets-row {
             grid-template-columns: repeat(2, 1fr);
@@ -689,12 +617,16 @@
 
         .footer-content {
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            text-align: center;
         }
 
-        .system-info {
-            flex-direction: column;
-            gap: 5px;
+        .footer-links {
+            justify-content: center;
+        }
+
+        .copyright {
+            margin-left: 0;
         }
     }
 
@@ -717,6 +649,11 @@
 
         .search-bar input {
             width: 150px;
+        }
+
+        .footer-links {
+            gap: 10px;
+            justify-content: center;
         }
     }
 </style>
@@ -746,8 +683,6 @@
             const notificationBell = document.querySelector('.notifications');
             if (notificationBell) {
                 notificationBell.addEventListener('click', function() {
-                    // In a real app, this would mark notifications as read
-                    // and redirect to notifications page
                     window.location.href = "{{ route('notifications.index') }}";
                 });
             }
